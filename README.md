@@ -1,8 +1,8 @@
 # tinyurl
 
-sudo vi /etc/hosts
+sudo vi /etc/hosts  Done
 ```
-127.0.0.1 cassandra
+127.0.0.1 cassandra 
 127.0.0.1 redis
 127.0.0.1 mongo
 ```
