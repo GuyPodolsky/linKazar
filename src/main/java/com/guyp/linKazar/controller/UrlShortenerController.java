@@ -1,51 +1,43 @@
-package com.handson.tinyurl.controller;
+package com.guyp.linKazar.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.handson.tinyurl.model.NewTinyRequest;
-import com.handson.tinyurl.model.User;
-import com.handson.tinyurl.model.UserClickOut;
-import com.handson.tinyurl.repository.UserClickRepository;
-import com.handson.tinyurl.repository.UserRepository;
-import com.handson.tinyurl.service.Redis;
+import com.guyp.linKazar.repository.UserClickRepository;
+import com.guyp.linKazar.service.Redis;
+import com.guyp.linKazar.model.NewTinyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
-import static com.handson.tinyurl.model.User.UserBuilder.anUser;
-import static com.handson.tinyurl.model.UserClick.UserClickBuilder.anUserClick;
-import static com.handson.tinyurl.model.UserClickKey.UserClickKeyBuilder.anUserClickKey;
-import static com.handson.tinyurl.util.Dates.getCurMonth;
+import static com.guyp.linKazar.model.UserClick.UserClickBuilder.anUserClick;
+import static com.guyp.linKazar.model.UserClickKey.UserClickKeyBuilder.anUserClickKey;
+import static com.guyp.linKazar.util.Dates.getCurMonth;
 import static org.springframework.data.util.StreamUtils.createStreamFromIterator;
 
 @RestController
-public class AppController {
+public class UrlShortenerController {
 
     private static final int MAX_RETRIES = 4;
     private static final int TINY_LENGTH = 6;
+
     @Autowired
     Redis redis;
+
     @Autowired
     ObjectMapper om;
+
     @Value("${base.url}")
     String baseUrl;
 
     Random random = new Random();
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -53,21 +45,7 @@ public class AppController {
     @Autowired
     private UserClickRepository userClickRepository;
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public User createUser(@RequestParam String name) {
-        User user = anUser().withName(name).build();
-        user = userRepository.insert(user);
-        return user;
-    }
-
-    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
-    public User getUser(@RequestParam String name) {
-        User user = userRepository.findFirstByName(name);
-        return user;
-    }
-
-
-    @RequestMapping(value = "/tiny", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/tiny", method = RequestMethod.POST)
     public String generate(@RequestBody NewTinyRequest request) throws JsonProcessingException {
         String tinyCode = generateTinyCode();
         int i = 0;
@@ -98,13 +76,7 @@ public class AppController {
         }
     }
 
-    @RequestMapping(value = "/user/{name}/clicks", method = RequestMethod.GET)
-    public List<UserClickOut> getUserClicks(@RequestParam String name) {
-        var userClicks = createStreamFromIterator( userClickRepository.findByUserName(name).iterator())
-                .map(userClick -> UserClickOut.of(userClick))
-                .collect(Collectors.toList());
-        return userClicks;
-    }
+
     private String generateTinyCode() {
         String charPool = "ABCDEFHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder res = new StringBuilder();

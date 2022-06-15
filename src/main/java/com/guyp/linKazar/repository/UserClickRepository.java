@@ -1,8 +1,8 @@
-package com.handson.tinyurl.repository;
+package com.guyp.linKazar.repository;
 
 
-import com.handson.tinyurl.model.UserClick;
-import com.handson.tinyurl.model.UserClickKey;
+import com.guyp.linKazar.model.UserClick;
+import com.guyp.linKazar.model.UserClickKey;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.data.cassandra.repository.Query;
 

@@ -1,10 +1,9 @@
-package com.handson.tinyurl.model;
+package com.guyp.linKazar.model;
 
 
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.util.Date;
 import java.util.Objects;
 
 @Table

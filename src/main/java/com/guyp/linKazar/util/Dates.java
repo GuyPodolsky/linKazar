@@ -1,4 +1,4 @@
-package com.handson.tinyurl.util;
+package com.guyp.linKazar.util;
 
 import org.joda.time.*;
 import org.springframework.lang.Nullable;

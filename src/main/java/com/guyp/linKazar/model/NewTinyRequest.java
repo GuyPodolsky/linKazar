@@ -1,4 +1,4 @@
-package com.handson.tinyurl.model;
+package com.guyp.linKazar.model;
 
 import org.hibernate.validator.constraints.URL;
 

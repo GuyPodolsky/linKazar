@@ -1,4 +1,4 @@
-package com.handson.tinyurl.config;
+package com.guyp.linKazar.config;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.context.annotation.Bean;

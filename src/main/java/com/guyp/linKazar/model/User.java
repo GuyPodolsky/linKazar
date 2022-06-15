@@ -1,4 +1,4 @@
-package com.handson.tinyurl.model;
+package com.guyp.linKazar.model;
 
 
 import org.springframework.data.annotation.Id;

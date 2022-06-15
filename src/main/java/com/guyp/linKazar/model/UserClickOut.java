@@ -1,15 +1,12 @@
-package com.handson.tinyurl.model;
+package com.guyp.linKazar.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.handson.tinyurl.util.Dates;
+import com.guyp.linKazar.util.Dates;
 import org.joda.time.LocalDateTime;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class UserClickOut {
 

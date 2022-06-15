@@ -1,4 +1,4 @@
-package com.handson.tinyurl.service;
+package com.guyp.linKazar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -128,7 +128,7 @@ public class Redis {
     /**
      * 递增
      * @param key 键
-     * @param by 要增加几(大于0)
+     * @param delta 要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta){
@@ -141,7 +141,7 @@ public class Redis {
     /**
      * 递减
      * @param key 键
-     * @param by 要减少几(小于0)
+     * @param delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta){
@@ -429,7 +429,6 @@ public class Redis {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return
      */
     public boolean lSet(String key, Object value) {
@@ -464,7 +463,6 @@ public class Redis {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {

@@ -1,5 +1,12 @@
 version: "3"
 services:
+  linkazar:
+    image: linkazar
+    hostname: localhost
+    ports: 
+      - 8080:8080
+    privileged: true
+
   redis:
     image: redis
     ports:

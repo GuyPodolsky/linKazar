@@ -1,4 +1,4 @@
-package com.handson.tinyurl.config;
+package com.guyp.linKazar.config;
 
 
 import org.springframework.context.annotation.Bean;

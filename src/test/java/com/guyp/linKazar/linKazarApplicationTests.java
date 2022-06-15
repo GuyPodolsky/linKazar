@@ -1,10 +1,10 @@
-package com.handson.tinyurl;
+package com.guyp.linKazar;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TinyurlApplicationTests {
+class linKazarApplicationTests {
 
 	@Test
 	void contextLoads() {
