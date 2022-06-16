@@ -17,9 +17,12 @@ public class CassandraConfig {
     @Value("${spring.data.cassandra.keyspace-name}")
     private String keyspace;
 
+    @Value("${spring.data.cassandra.port}")
+    private Integer port;
+
     @Bean("cassandraSession")
     public CqlSession getCassandraSession() throws URISyntaxException {
-        CqlSession cqlSession  = CqlSession.builder().addContactPoint(new InetSocketAddress(host, 9042))
+        CqlSession cqlSession  = CqlSession.builder().addContactPoint(new InetSocketAddress(host, port))
                                                      .withLocalDatacenter("datacenter1")
                                                      .build();
 
@@ -31,7 +34,7 @@ public class CassandraConfig {
         cqlSession.close();
 
         return CqlSession.builder()
-                .addContactPoint(new InetSocketAddress(host, 9042))
+                .addContactPoint(new InetSocketAddress(host, port))
                 .withKeyspace(keyspace)
                 .withLocalDatacenter("datacenter1")
                 .build();
