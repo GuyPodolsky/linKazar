@@ -6,6 +6,8 @@ import com.guyp.linKazar.repository.UserClickRepository;
 import com.guyp.linKazar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.StreamUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,10 +30,15 @@ public class UserController {
     private UserClickRepository userClickRepository;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public User createUser(@RequestParam String name) {
-        User user = User.UserBuilder.anUser().withName(name).build();
-        user = userRepository.insert(user);
-        return user;
+    public ResponseEntity<?> createUser(@RequestParam String name) {
+        if(userRepository.findFirstByName(name)==null){
+            User user = User.UserBuilder.anUser().withName(name).build();
+            user = userRepository.insert(user);
+            return new ResponseEntity<>(user.toString(), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("User with the name: " + name + " is already exists!", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
