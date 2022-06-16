@@ -60,7 +60,7 @@ public class Dates {
 
     public static LocalDateTime atLocalTime(Date date, TimeZone zone) {
         if (date == null) return null;
-        var localDate = OffsetDateTime.ofInstant(date.toInstant(), zone.toZoneId()).toLocalDateTime();
+        java.time.LocalDateTime localDate = OffsetDateTime.ofInstant(date.toInstant(), zone.toZoneId()).toLocalDateTime();
         Calendar c = Calendar.getInstance();
         c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
         c.set(Calendar.HOUR_OF_DAY, localDate.getHour());

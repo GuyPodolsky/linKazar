@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{name}/clicks", method = RequestMethod.GET)
     public List<UserClickOut> getUserClicks(@RequestParam String name) {
-        var userClicks = StreamUtils.createStreamFromIterator(userClickRepository.findByUserName(name).iterator())
+        List<UserClickOut> userClicks = StreamUtils.createStreamFromIterator(userClickRepository.findByUserName(name).iterator())
                 .map(userClick -> UserClickOut.of(userClick))
                 .collect(Collectors.toList());
         return userClicks;
