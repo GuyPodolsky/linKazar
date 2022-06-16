@@ -14,22 +14,25 @@ public class CassandraConfig {
     @Value("${spring.data.cassandra.contact-points}")
     private String host;
 
+    @Value("${spring.data.cassandra.keyspace-name}")
+    private String keyspace;
+
     @Bean("cassandraSession")
     public CqlSession getCassandraSession() throws URISyntaxException {
         CqlSession cqlSession  = CqlSession.builder().addContactPoint(new InetSocketAddress(host, 9042))
                                                      .withLocalDatacenter("datacenter1")
                                                      .build();
 
-        Boolean isKeyspaceNotExists = cqlSession.execute("SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name='tiny_keyspace';").all().isEmpty();
+        Boolean isKeyspaceNotExists = cqlSession.execute("SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name='" + keyspace + "';").all().isEmpty();
         if(isKeyspaceNotExists) {
-            cqlSession.execute("CREATE KEYSPACE tiny_keyspace WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};");
+            cqlSession.execute("CREATE KEYSPACE " + keyspace + " WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};");
         }
 
         cqlSession.close();
 
         return CqlSession.builder()
                 .addContactPoint(new InetSocketAddress(host, 9042))
-                .withKeyspace("tiny_keyspace")
+                .withKeyspace(keyspace)
                 .withLocalDatacenter("datacenter1")
                 .build();
     }
