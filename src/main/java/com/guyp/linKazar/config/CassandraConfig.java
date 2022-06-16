@@ -1,6 +1,7 @@
 package com.guyp.linKazar.config;
 
 import com.datastax.oss.driver.api.core.CqlSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,10 +11,12 @@ import java.net.URISyntaxException;
 @Configuration
 public class CassandraConfig {
 
+    @Value("${spring.data.cassandra.contact-points}")
+    private String host;
 
     @Bean("cassandraSession")
     public CqlSession getCassandraSession() throws URISyntaxException {
-        CqlSession cqlSession  = CqlSession.builder().addContactPoint(new InetSocketAddress("cassandra", 9042))
+        CqlSession cqlSession  = CqlSession.builder().addContactPoint(new InetSocketAddress(host, 9042))
                                                      .withLocalDatacenter("datacenter1")
                                                      .build();
 
@@ -25,7 +28,7 @@ public class CassandraConfig {
         cqlSession.close();
 
         return CqlSession.builder()
-                .addContactPoint(new InetSocketAddress("cassandra", 9042))
+                .addContactPoint(new InetSocketAddress(host, 9042))
                 .withKeyspace("tiny_keyspace")
                 .withLocalDatacenter("datacenter1")
                 .build();
