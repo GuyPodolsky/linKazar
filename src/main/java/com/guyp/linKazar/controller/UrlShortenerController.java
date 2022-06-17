@@ -22,6 +22,7 @@ import static com.guyp.linKazar.model.UserClickKey.UserClickKeyBuilder.anUserCli
 import static com.guyp.linKazar.util.Dates.getCurMonth;
 import static org.springframework.data.util.StreamUtils.createStreamFromIterator;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UrlShortenerController {
 
